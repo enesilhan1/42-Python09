@@ -107,4 +107,20 @@ def main():
     print("Crew members:")
     for member in mission.crew:
         print(f"- {member.name} ({member.rank.value}) - {member.specialization}")
-        
+
+
+    print("\n==========================================")
+    print("Expected validation error:")
+    try:
+        invalid_mission = SpaceMission(
+            mission_id="M2024_LUNA",
+            mission_name="Lunar Research Mission",
+            destination="Moon",
+            launch_date=datetime.datetime.now(),
+            duration_days=900,
+            budget_millions=1200.0,
+            crew=[jhon, alice]
+        )
+        print(f"Unexpected: {invalid_mission.mission_id} was accepted")
+    except pydantic.ValidationError as e:
+        print(e.errors()[0]["msg"].removeprefix("Value error, "))
