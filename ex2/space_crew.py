@@ -54,3 +54,57 @@ class SpaceMission(pydantic.BaseModel):
             if not member.is_active:
                 raise ValueError("All crew members must be active")
         return self
+
+
+def main():
+    try:
+        sarah = CrewMember(
+            member_id="CM_01",
+            name="Sarah Connor",
+            rank=Rank.COMMANDER,
+            age=52,
+            specialization="Mission Command",
+            years_experience=30
+            )
+        jhon = CrewMember(
+                member_id="CM_02",
+                name="John Smith",
+                rank=Rank.LIEUTENANT,
+                age=47,
+                specialization="Navigation",
+                years_experience=23
+                )
+        alice = CrewMember(
+                member_id="CM_03",
+                name="Alice Johnson",
+                rank=Rank.OFFICER,
+                age=42,
+                specialization="Engineering",
+                years_experience=20
+                )
+        mission = SpaceMission(
+            mission_id="M2024_MARS",
+            mission_name="Mars Colony Establishment",
+            destination="Mars",
+            launch_date=datetime.datetime.now(),
+            duration_days=900,
+            budget_millions=2500,
+            crew=[sarah, jhon, alice]
+        )
+    except pydantic.ValidationError as e:
+        print("=========================================")
+        print(e)
+        return
+    print("Space Mission Crew Validation")
+    print("=========================================")
+    print("Valid mission created:")
+    print(f"Mission: {mission.mission_name}")
+    print(f"ID: {mission.mission_id}")
+    print(f"Destination: {mission.destination}")
+    print(f"Duration: {mission.duration_days} days")
+    print(f"Budget: ${mission.budget_millions}M")
+    print(f"Crew size: {len(mission.crew)}")
+    print("Crew members:")
+    for member in mission.crew:
+        print(f"- {member.name} ({member.rank.value}) - {member.specialization}")
+        
