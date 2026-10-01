@@ -1,6 +1,10 @@
 import pydantic
 import datetime
 
+class SpaceStationError(Exception):
+    def __init__(self):
+        super().__init__("Space Station Error: Invalid data provided.")
+
 class SpaceStation(pydantic.BaseModel):
     station_id: str = pydantic.Field(min_length=3, max_length=10)
     name: str = pydantic.Field(min_length=1, max_length=50)
@@ -12,7 +16,9 @@ class SpaceStation(pydantic.BaseModel):
     notes: str | None = pydantic.Field(default=None, min_length=0, max_length=200)
 
 def main():
-    station = SpaceStation(
+    error: int = 0
+    try:
+        station = SpaceStation(
         station_id="ISS001",
         name="International Space Station",
         crew_size=6,
@@ -21,3 +27,6 @@ def main():
         last_maintenance="2026-10-01T14:05:00",
         is_operational=True
     )
+    except SpaceStationError as e:
+        print(e)
+        error = 1
