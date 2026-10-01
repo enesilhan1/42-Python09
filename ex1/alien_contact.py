@@ -77,3 +77,6 @@ def main() -> None:
         print("Expected validation error:")
         message = e.errors()[0]["msg"]
         print(message.removeprefix("Value error, "))
+
+if __name__ == "__main__":
+    main()
