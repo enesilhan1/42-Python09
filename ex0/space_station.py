@@ -29,11 +29,12 @@ def main():
         return
     print("Space Station Data Validation")
     print("====================================")
+    print("Valid station created:")
     print(f"ID: {station.station_id}")
     print(f"Name: {station.name}")
-    print(f"Crew: {station.crew_size}")
-    print(f"Power: {station.power_level}")
-    print(f"Oxygen: {station.oxygen_level}")
+    print(f"Crew: {station.crew_size} people")
+    print(f"Power: {station.power_level}%")
+    print(f"Oxygen: {station.oxygen_level}%")
     print(f"Last Maintenance: {station.last_maintenance}")
     print(f"Is Operational: {station.is_operational}")
 
