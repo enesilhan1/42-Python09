@@ -37,3 +37,5 @@ def main():
     print(f"Last Maintenance: {station.last_maintenance}")
     print(f"Is Operational: {station.is_operational}")
 
+if __name__ == "__main__":
+    main()
