@@ -10,3 +10,14 @@ class SpaceStation(pydantic.BaseModel):
     last_maintenance: datetime.datetime
     is_operational: bool = True
     notes: str | None = pydantic.Field(default=None, min_length=0, max_length=200)
+
+def main():
+    station = SpaceStation(
+        station_id="ISS001",
+        name="International Space Station",
+        crew_size=6,
+        power_level=85.5,
+        oxygen_level=92.3,
+        last_maintenance="2026-10-01T14:05:00",
+        is_operational=True
+    )
