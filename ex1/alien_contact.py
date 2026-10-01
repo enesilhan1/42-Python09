@@ -19,3 +19,14 @@ class AlienContact(pydantic.BaseModel):
     message_received: str | None = pydantic.Field(default=None, max_length=500)
     is_verified: bool = False
 
+    @pydantic.model_validator(mode="after")
+    def check_rules(self) -> "AlienContact":
+        if not self.contact_id.startswith("AC"):
+            raise ValueError("contact_id must start with 'AC'")
+        if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
+            raise ValueError("Physical contacts must be verified")
+        if self.contact_type == ContactType.TELEPATHIC and self.witness_count < 3:
+            raise ValueError("Telepathic contact requires at least 3 witnesses")
+        if self.signal_strength > 7.0 and self.message_received is None:
+            raise ValueError("Strong signals must have a message received")
+        return self
