@@ -38,5 +38,21 @@ def main():
     print(f"Last Maintenance: {station.last_maintenance}")
     print(f"Is Operational: {station.is_operational}")
 
+    print()
+    print("====================================")
+    try:
+        invalid_station = SpaceStation(
+            station_id="ISS002",
+            name="Overcrowded Station",
+            crew_size=25,
+            power_level=85.5,
+            oxygen_level=92.3,
+            last_maintenance="2026-10-01T14:05:00",
+        )
+        print(f"Unexpected: {invalid_station.station_id} was created")
+    except pydantic.ValidationError as e:
+        print("Expected validation error:")
+        print(e.errors()[0]["msg"])
+        
 if __name__ == "__main__":
     main()
